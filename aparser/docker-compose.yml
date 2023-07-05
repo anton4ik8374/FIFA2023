@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+    a-parser:
+        container_name:  a_parser
+        image: aparser/runtime:latest
+        command: ./aparser
+        restart: always
+        volumes:
+            - ./aparser:/app
+        ports:
+            - 9091:9091

@@ -182,6 +182,17 @@ class User {
         return result;
     }
 
+    async testA() {
+        let context = this;
+        console.log(RoutersApi.routes['a-parser']);
+        await mainApi.post(RoutersApi.routes['a-parser']).then((response) => {
+            console.log(response?.data);
+        }).catch((error) => {
+            addNotise(error?.response?.data?.message, error.response.status);
+            console.log(error);
+        });
+    }
+
 }
 
 export default new User()

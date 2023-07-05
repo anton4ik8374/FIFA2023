@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+        "target": "esnext",
+        "moduleResolution": "node",
+        "module": "commonjs",
+        "sourceMap": true,
+        "baseUrl": ".",
+        "paths": {
+            "*": ["node_modules/*", "../dist/nodejs/node_modules/*"]
+        }
+    },
+    "include": ["**/*.ts"]
+}
