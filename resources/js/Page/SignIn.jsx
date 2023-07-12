@@ -41,6 +41,10 @@ const SignIn = observer(() => {
         formik.setErrors(errors);
     },[errors]);
 
+    const heandlearA = () => {
+        UserStore.testA();
+    };
+
 
 
 
@@ -60,69 +64,36 @@ const SignIn = observer(() => {
                     alignItems: 'center',
                 }}
             >
-                <Avatar sx={{m: 1, bgcolor: 'secondary.main'}}>
-                    <LockOutlinedIcon/>
-                </Avatar>
+                <Button
+                    variant="contained"
+                    onClick={heandlearA}>
+                    A-parser
+                </Button>
                 <Typography component="h1" variant="h5">
-                    Авторизация
+                    Получение информации по UUID
                 </Typography>
                 <Box component="form" onSubmit={formik.handleSubmit} noValidate sx={{mt: 1}}>
                     <TextField
                         required
                         fullWidth
-                        label="Email"
-                        name="email"
-                        id="email"
+                        label="UUID"
+                        name="uuid"
+                        id="uuid"
                         onChange={formik.handleChange}
-                        value={formik.values.email}
-                        error={formik.touched.email && Boolean(formik.errors.email)}
-                        helperText={formik.touched.email && formik.errors.email}
+                        value={formik.values.uuid}
+                        error={formik.touched.uuid && Boolean(formik.errors.uuid)}
+                        helperText={formik.touched.uuid && formik.errors.uuid}
                     />
-                    <TextField
-                        margin="normal"
-                        required
-                        fullWidth
-                        name="password"
-                        label="Пароль"
-                        type={showPassword ? 'text' : 'password'}
-                        id="password"
-                        onChange={formik.handleChange}
-                        value={formik.values.password}
-                        error={formik.touched.password && Boolean(formik.errors.password)}
-                        helperText={formik.touched.password && formik.errors.password}
-                        InputProps={{
-                            endAdornment: (
-                                <InputAdornment position="end">
-                                    <IconButton
-                                        aria-label="toggle password visibility"
-                                        onClick={handleTogglePassword}
-                                    >
-                                        {showPassword ? <Visibility/> : <VisibilityOff/>}
-                                    </IconButton>
-                                </InputAdornment>
-                            ),
-                        }}
-                    />
+
                     <Button
                         type="submit"
                         fullWidth
                         variant="contained"
                         sx={{mt: 3, mb: 2}}
                     >
-                        Войти
+                        Получить информацию
                     </Button>
-                    {/*<Grid container>
-                        <Grid item xs>
-                            <Link to={routesMap.registrations} variant="body2">
-                                Забыли пароль?
-                            </Link>
-                        </Grid>
-                        <Grid item>
-                            <Link to={routesMap.registrations} variant="body2">
-                                Регистрация
-                            </Link>
-                        </Grid>
-                    </Grid>*/}
+
                 </Box>
             </Box>
         </Container>

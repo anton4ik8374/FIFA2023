@@ -251,7 +251,7 @@ class Aparser
     }
 
     /**
-     * Getting of the parser settings and presets
+     * Получение настроек и пресетов синтаксического анализатора
      *
      * @param $parser
      * @param string $preset
@@ -269,8 +269,8 @@ class Aparser
     }
 
     /**
-     * Add a task to turn all options are similar to those that are
-     * specified in the interface Add Task
+     * Добавьте задачу, чтобы включить все параметры, аналогичные тем, которые
+     * указаны в интерфейсе Добавления задачи
      *
      * @param string $configPreset
      * @param string $taskPreset
@@ -321,7 +321,7 @@ class Aparser
     }
 
     /**
-     * Getting the status of task by uid
+     * Получение статуса задачи по uid
      *
      * @param int $taskUid
      * @return array
@@ -332,7 +332,7 @@ class Aparser
     }
 
     /**
-     * Getting configuration task by uid
+     * Получение задачи настройки по uid
      *
      * @param int $taskUid
      * @return array
@@ -343,7 +343,7 @@ class Aparser
     }
 
     /**
-     * Change status of a task by id
+     *Изменение статуса задачи по идентификатору
      *
      * @param int $taskUid
      * @param string $toStatus starting|pausing|stopping|deleting
@@ -365,7 +365,7 @@ class Aparser
     }
 
     /**
-     * Getting the link to Task results file by Task Uid
+     * Получение ссылки на файл результатов задания по Uid задачи
      *
      * @param int $taskUid
      * @return array
@@ -376,7 +376,7 @@ class Aparser
     }
 
     /**
-     * Removing results file by Task Uid
+     * Удаление файла результатов по Uid задачи
      *
      * @param $taskUid
      * @return mixed
@@ -387,7 +387,7 @@ class Aparser
     }
 
     /**
-     * Getting the list of tasks
+     * Получение списка задач
      *
      * @param $completed
      * @return mixed
@@ -468,7 +468,7 @@ class Aparser
             }
 
             if ($this->getOption('debug')) {
-                echo "Response:\n" . $response . "\n";
+                return  $response;
             }
 
             $response = json_decode($response, TRUE);

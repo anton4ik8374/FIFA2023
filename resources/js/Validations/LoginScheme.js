@@ -4,12 +4,8 @@ import * as yup from "yup";
 export function getLoginSchema() {
     return yup.object().shape({
 
-        email: yup
+        uuid: yup
             .string()
-            .email("Некорректный формат электронной почты")
-            .required("Email обязателен для заполнения"),
-        password: yup
-            .string()
-            .required("Пароль обязателен для заполнения")
+            .required("UUID обязателен для заполнения"),
     });
 }

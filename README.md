@@ -28,3 +28,7 @@
 *a-parser доступен по адресу http://localhost:9091*
 
 *приложение http://localhost*
+
+## CRON
+##### * */2 * * * php /var/www/html/artisan cron:stavka 1
+##### */6 */2 * * * php /var/www/html/artisan cron:stavka

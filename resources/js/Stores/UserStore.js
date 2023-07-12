@@ -184,9 +184,25 @@ class User {
 
     async testA() {
         let context = this;
-        console.log(RoutersApi.routes['a-parser']);
         await mainApi.post(RoutersApi.routes['a-parser']).then((response) => {
-            console.log(response?.data);
+            if(response.status === StatusCodes.OK){
+                addNotise(response?.data?.message, response.status);
+            } else {
+                addNotise(response?.data?.message, response.status);
+            }
+        }).catch((error) => {
+            addNotise(error?.response?.data?.message, error.response.status);
+            console.log(error);
+        });
+    }
+    async testB(uuid) {
+        let context = this;
+        await mainApi.post(RoutersApi.routes['get-a-parser'], uuid).then((response) => {
+            if(response.status === StatusCodes.OK){
+                addNotise(response?.data?.message, response.status);
+            } else {
+                addNotise(response?.data?.message, response.status);
+            }
         }).catch((error) => {
             addNotise(error?.response?.data?.message, error.response.status);
             console.log(error);
