@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Traites\Crud;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Menu;
@@ -13,6 +14,7 @@ use App\Models\Menu;
 class Role extends Model
 {
     use HasFactory;
+    use Crud;
 
     /**
      * Атрибуты, которые можно массово присваивать.
@@ -47,32 +49,6 @@ class Role extends Model
     public function menus(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Menu::class,'menus_roles');
-    }
-
-
-    /**
-     * Создаём новую запись
-     * @param $filds
-     * @return static
-     */
-    public static function add($filds): static
-    {
-        $role = new static;
-        $role->fill($filds);
-        $role->save();
-
-        return $role;
-    }
-
-    /**
-     * @param $filds
-     * @return $this
-     */
-    public function edit($filds): static
-    {
-        $this->fill($filds);
-        $this->save($filds);
-        return $this;
     }
 
     /**

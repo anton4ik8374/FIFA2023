@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Traites\Crud;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -12,6 +13,7 @@ use Illuminate\Database\Eloquent\Model;
 class Permission extends Model
 {
     use HasFactory;
+    use Crud;
 
     /**
      * Атрибуты, которые можно массово присваивать.

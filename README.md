@@ -30,5 +30,5 @@
 *приложение http://localhost*
 
 ## CRON
-##### * */2 * * * php /var/www/html/artisan cron:stavka 1
-##### */6 */2 * * * php /var/www/html/artisan cron:stavka
+##### * */2 * * * php /var/www/html/artisan cron:stavka 1 - Запускаем процесс сбора данных a-parser
+##### */6 */2 * * * php /var/www/html/artisan cron:stavka - Получаем данные из a-parser и записываем в БД

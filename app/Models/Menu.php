@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Traites\Crud;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -12,6 +13,7 @@ use Illuminate\Database\Eloquent\Model;
 class Menu extends Model
 {
     use HasFactory;
+    use Crud;
 
     /**
      * Дефолтное значение
@@ -50,31 +52,6 @@ class Menu extends Model
     }
 
     /**
-     * Создаём новую запись
-     * @param $filds
-     * @return static
-     */
-    public static function add($filds): static
-    {
-        $menu = new static;
-        $menu->fill($filds);
-        $menu->save();
-
-        return $menu;
-    }
-
-    /**
-     * Редактирование записи
-     * @param $fields
-     * @return bool
-     */
-    public function edit($fields): bool
-    {
-        $this->fill($fields);
-        return $this->save();
-    }
-
-    /**
      * Получение общего меню
      * @param string $slug
      * @return mixed
@@ -83,15 +60,6 @@ class Menu extends Model
     {
         $menus = Role::where('slug', $slug)->first()->menus();
         return $menus->where('actual', true)->orderBy('sort', 'ASC')->get()->toArray();
-    }
-
-    /**
-     * Удаляем запись
-     * @return void
-     */
-    public function remove(): void
-    {
-        $this->delete();
     }
 
     /**
