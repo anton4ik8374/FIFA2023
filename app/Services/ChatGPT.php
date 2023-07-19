@@ -5,7 +5,7 @@ namespace App\Services;
 class ChatGPT extends ServiceAPI
 {
 
-    //public string $url  = 'https://api.openai.com/v1/chat/completions';
+    public string $url  = 'https://api.openai.com/v1/completions';
     public string $urlModel  = 'https://api.openai.com/v1/models';
 
     public function __construct($texts = ''){
@@ -41,11 +41,11 @@ class ChatGPT extends ServiceAPI
     }
 
     public function getModel(){
-        if($this->url) {
+        if($this->urlModel) {
             $curl = curl_init();
             curl_setopt($curl, CURLOPT_HTTPHEADER, $this->headers);
             curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-            curl_setopt($curl, CURLOPT_URL, $this->url);
+            curl_setopt($curl, CURLOPT_URL, $this->urlModel);
             $this->result = curl_exec($curl);
             curl_close($curl);
         }

@@ -25,6 +25,8 @@ class MainController extends Controller
 
     public function chat(){
         $item = new ChatGPT();
+        //$item->getModel();
+        //dd($item->result);
         $item->setText('Liverpool');
         $item->init()->send();
         #$item->send();

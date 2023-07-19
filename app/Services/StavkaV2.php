@@ -15,7 +15,6 @@ class StavkaV2
     public array $headers = [];
     public string $event_id;
     public int $offset = 50;
-    public int $currentOffset = 0;
     public $result;
     public array $params =  [
         'betOnTips' => 'false',
@@ -37,7 +36,7 @@ class StavkaV2
 
     protected function getUrl(){
         $uri =  $this->url . '?' . http_build_query($this->params);
-        return $uri . '&sports[]=soccer&leagueSlugs[]=brazil-brasileiro-serie-b';
+        return $uri . '&sports[]=soccer&leagueSlugs[]=uefa-europa-conference-league';
     }
 
     public function getData() : bool|string
@@ -62,11 +61,13 @@ class StavkaV2
         foreach ($result->data->predictions as $item){
             $this->constructorData($item);
         }
-        if($result->meta->total > $this->offset){
-            $this->currentOffset += $this->offset;
-            if($this->params['offset'] < $this->result->meta) {
-                $this->nextOffset();
-                $this->result = json_decode($this->getData());
+
+        while($result->meta->total > $this->params['offset']){
+            $this->nextOffset();
+            $resultCurrent = json_decode($this->getData());
+
+            foreach ($resultCurrent->data->predictions as $item){
+                $this->constructorData($item);
             }
         }
     }
