@@ -24,15 +24,9 @@ class ChatGPT extends ServiceAPI
     public function init(): ServiceAPI
     {
         $post_data = [
-            "model" => "gpt-3.5-turbo",
-            "messages" => array(
-                array(
-                    "role" => "user",
-                    "content" => $this->texts
-                )
-            ),
-            "max_tokens" => 12,
-            "temperature" => 0
+            "model" => "text-davinci-003",
+            "prompt" => "What time is it",
+            "max_tokens" => 20
         ];
         $this->post_data = json_encode($post_data, JSON_THROW_ON_ERROR);
 

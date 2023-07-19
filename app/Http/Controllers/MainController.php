@@ -10,10 +10,7 @@ use App\Models\Teams;
 use App\Services\ChatGPT;
 use App\Services\InterfaceServices;
 use App\Services\Olbg;
-use App\Services\Stavka;
-use App\Services\Translate;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
 use App\Services\StavkaV2;
 
 class MainController extends Controller
@@ -24,13 +21,15 @@ class MainController extends Controller
     }
 
     public function chat(){
-        $item = new ChatGPT();
-        //$item->getModel();
-        //dd($item->result);
-        $item->setText('Liverpool');
-        $item->init()->send();
-        #$item->send();
-        $data['message'] = json_decode($item->result);
+        $client = \OpenAI::client(env('OPENAI_API_KEY',''));
+        $result = [];
+        if($client) {
+            $result = $client->completions()->create([
+                'model' => 'text-davinci-003',
+                'prompt' => 'What is the meaning of life?',
+            ]);
+        }
+        $data['message'] = $result;
         return response()->json($data, 200);
     }
     public function stavka()
