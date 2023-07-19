@@ -17,6 +17,7 @@ return new class extends Migration
             $table->text('name_ru')->nullable()->comment('Наименование на английском');
             $table->text('alter_name')->nullable()->comment('Альтернативное название');
             $table->text('description')->nullable()->comment('Описание');
+            $table->text('logo')->nullable()->comment('Логотип');
             $table->timestamps();
         });
     }

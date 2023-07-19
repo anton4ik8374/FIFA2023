@@ -40,8 +40,14 @@ export default function Home() {
         formik.setErrors(errors);
     },[errors]);
 
-    const heandlearA = () => {
-        UserStore.testA();
+    const Stavka = () => {
+        UserStore.Stavka();
+    };
+    const Olbg = () => {
+        UserStore.Olbg();
+    };
+    const ChatGPT = () => {
+        UserStore.ChatGPT();
     };
 
     return (
@@ -59,8 +65,21 @@ export default function Home() {
                     >
                         <Button
                             variant="contained"
-                            onClick={heandlearA}>
-                            A-parser
+                            color="secondary"
+                            onClick={ChatGPT}>
+                            ChatGPT
+                        </Button>
+                        <Button
+                            variant="contained"
+                            color="success"
+                            onClick={Stavka}>
+                            Stavka
+                        </Button>
+                        <Button
+                            color="error"
+                            variant="contained"
+                            onClick={Olbg}>
+                            Olbg
                         </Button>
                         <Typography component="h1" variant="h5">
                             Получение информации по UUID

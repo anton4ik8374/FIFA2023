@@ -9,5 +9,7 @@ interface InterfaceServices
      */
     public function load() : void;
 
-    public function import($uuid) : void;
+    public function import(string $uuid, int $event_id) : bool;
+
+    public function constructorData(int $event_id) : void;
 }

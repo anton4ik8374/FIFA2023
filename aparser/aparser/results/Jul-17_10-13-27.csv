@@ -1,0 +1,11 @@
+matches,league,date_event,bet,odds,tips,confidence
+"Chelsea v Liverpool","England Premier League",2023-08-13T16:30:00+01:00,Liverpool,2.40,"3 / 5 Tips",60%
+"Arsenal v Nottm Forest","England Premier League",2023-08-12T12:30:00+01:00,Arsenal,1.29,"3 / 4 Tips",75%
+"Bournemouth v West Ham","England Premier League",2023-08-12T15:00:00+01:00,"West Ham",2.45,"3 / 4 Tips",75%
+"Man Utd v Wolverhampton","England Premier League",2023-08-14T20:00:00+01:00,"Man Utd",1.38,"2 / 5 Tips",40%
+"Brentford v Tottenham","England Premier League",2023-08-13T14:00:00+01:00,Draw,3.60,"2 / 4 Tips",50%
+"Everton v Fulham","England Premier League",2023-08-12T15:00:00+01:00,Everton,2.20,"2 / 4 Tips",50%
+"Brighton v Luton","England Premier League",2023-08-12T15:00:00+01:00,Brighton,1.33,"2 / 4 Tips",50%
+"Newcastle v Aston Villa","England Premier League",2023-08-12T17:30:00+01:00,Newcastle,1.80,"2 / 3 Tips",67%
+"Burnley v Man City","England Premier League",2023-08-11T20:00:00+01:00,Yes,2.00,"2 / 2 Tips",100%
+"Sheff Utd v Crystal Palace","England Premier League",2023-08-12T15:00:00+01:00,Yes,1.91,"2 / 2 Tips",100%

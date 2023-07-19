@@ -23,7 +23,10 @@ class Events extends Model
      * Возвращаем записи которые не обработаны
      * @return mixed
      */
-    public static function getUnprocessed(){
+    public static function getUnprocessed($name = false){
+        if($name){
+            return self::whereStatus(false)->whereName($name)->get();
+        }
         return self::whereStatus(false)->get();
     }
 }

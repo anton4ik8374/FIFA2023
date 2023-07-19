@@ -2,23 +2,14 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Apply;
-use App\Models\ApplyStatus;
 use App\Models\Events;
-use App\Models\Notification;
-use App\Models\Organization;
-use App\Models\Subscription;
-use App\Services\Aparser;
+use App\Models\Matches;
+use App\Models\Teams;
+use App\Models\Forecasts;
 use App\Services\InterfaceServices;
 use App\Services\Stavka;
+use App\Services\StavkaV2;
 use Illuminate\Console\Command;
-use Carbon\Carbon;
-use App\Models\Procedures;
-use App\Models\ProcedureType;
-use App\Models\Rebidding;
-use App\Models\ProcedureStatus;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Facades\Log;
 
 
 class ImportStavka extends Command
@@ -35,7 +26,7 @@ class ImportStavka extends Command
      *
      * @var string
      */
-    protected $description = 'Импортирует данные из stavka.tv/predictions/soccer';
+    protected $description = 'Импортирует данные из stavka.tv';
 
 
     /**
@@ -62,26 +53,15 @@ class ImportStavka extends Command
      */
     public function handle()
     {
-        $this->load = $this->argument('load');
-        if($this->load){
-            $stavka = new Stavka();
-            if($stavka instanceof InterfaceServices) {
+        $name = env('SITE_STAVKA_NAME', '');
+        $event = Events::add(['name' => $name]);
+        if($event) {
+            $stavka = new StavkaV2($event->id);
+            if ($stavka) {
                 $stavka->load();
-                if($stavka->uuid){
-                    Events::add(['external_id' => $stavka->uuid, 'name' => 'stavka.tv']);
-                }
-            }
-        }
-        else{
-            $stavka = new Stavka();
-            if($stavka instanceof InterfaceServices) {
-                $events = Events::getUnprocessed();
-                foreach ($events as $event){
-                    if($event->external_id) {
-                        $stavka->import($event->external_id);
-                        $events->status = true;
-                        $events->save();
-                    }
+                if (count($stavka->result)) {
+                    $stavka->import();
+                    $event->edit(['status' => true]);
                 }
             }
         }

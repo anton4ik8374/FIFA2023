@@ -30,7 +30,7 @@ const StartStyle = {
         pb: 6,
     },
     shadows: {
-        pt: '100vh',
+        pt: '10vh',
         background: 'linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0.65) 56%,rgba(0,0,0,0.65) 100%) !important'
     },
     paralaxText: {

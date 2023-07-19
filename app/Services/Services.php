@@ -2,8 +2,12 @@
 
 namespace App\Services;
 
+use Illuminate\Support\Facades\Log;
+
 abstract class Services implements InterfaceServices
 {
+
+    public static string $status = 'completed';
     /**
      * @var array
      */
@@ -41,6 +45,35 @@ abstract class Services implements InterfaceServices
 
     /**
      * Получаем данные из a-parser и записываем в БД
+     * @param $uuid
+     * @param $event_id
+     * @return bool
      */
-    abstract public function import($uuid) : void;
+    public function import($uuid, $event_id) : bool
+    {
+        $result = false;
+        try {
+            $this->data = [];
+            if($uuid && $this->aparser instanceof Aparser) {
+                $data['file'] = $this->aparser->getTaskResultsFile($uuid);
+                $status = $this->aparser->getTaskState($uuid);
+                if($status['status'] === self::$status) {
+                    $result = true;
+                    if ($data['file']) {
+                        $file = fopen($data['file'], 'r', false);
+                        while (($buffer = fgetcsv($file, 99999, ',')) !== false) {
+                            $this->data[] = $buffer;
+                        }
+                        fclose($file);
+                        $this->aparser->deleteTaskResultsFile($uuid);
+                    }
+                }
+            }
+        } catch (\Throwable $e) {
+            Log::warning('IMPORT ERROR: ' . $e->getMessage());
+        }
+        return $result;
+    }
+
+    abstract public function constructorData(int $event_id) : void;
 }

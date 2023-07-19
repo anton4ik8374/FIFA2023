@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->bigIncrements('id')->comment('Идентификатор');
-            $table->integer('external_id', false)->comment('Идентификатор процесса в A-parser');
+            $table->integer('external_id', false)->nullable()->comment('Идентификатор процесса в A-parser');
             $table->string('name')->comment('Наименование cron');
             $table->boolean('status')->default(true)->comment('Статус (данные получены = true, не получены = false)')->default(false);
             $table->timestamps();

@@ -11,11 +11,11 @@ trait Crud
      */
     public static function add($filds): static
     {
-        $menu = new static;
-        $menu->fill($filds);
-        $menu->save();
+        $item = new static;
+        $item->fill($filds);
+        $item->save();
 
-        return $menu;
+        return $item;
     }
 
     /**

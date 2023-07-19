@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('matches', function (Blueprint $table) {
             $table->bigIncrements('id')->comment('Идентификатор');
-            $table->text('name')->nullable()->comment('Наименование');
+            $table->text('name')->nullable()->comment('Наименование базовое');
+            $table->text('name_ru')->nullable()->comment('Наименование на русском');
             $table->text('description')->nullable()->comment('Комментарий')->nullable();
             $table->unsignedBigInteger('event_id')->comment('События сбора данных');
             $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade');
@@ -27,6 +28,9 @@ return new class extends Migration
             $table->float('odds', 10, 3)->nullable()->comment('Шансы')->nullable();
             $table->float('all_tips', 10, 3)->nullable()->comment('Всего прогнозов')->nullable();
             $table->float('win_tips', 10, 3)->nullable()->comment('Прогнозы по выигрышу')->nullable();
+            $table->text('bet')->nullable()->comment('Ставка/Исход');
+            $table->unsignedBigInteger('league_id')->comment('Лига')->nullable();
+            $table->foreign('league_id')->references('id')->on('leagues')->onDelete('cascade');
             $table->timestamps();
         });
     }

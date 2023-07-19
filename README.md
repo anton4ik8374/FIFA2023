@@ -3,6 +3,7 @@
 
 
 ## START PROJECT
+0. переименуйте файл .env.example в .env и заполните его
 1. Для развёртывания на вашем устройстве должен быть установлен Node.js ,Docker
 2. Если вы работаете под Windows вам может понадобится WSL https://learn.microsoft.com/ru-ru/windows/wsl/install
 3. Далее описаны шиги по развёртыванию окружения.
@@ -30,5 +31,6 @@
 *приложение http://localhost*
 
 ## CRON
-##### * */2 * * * php /var/www/html/artisan cron:stavka 1 - Запускаем процесс сбора данных a-parser
-##### */6 */2 * * * php /var/www/html/artisan cron:stavka - Получаем данные из a-parser и записываем в БД
+##### * */2 * * * php /var/www/html/artisan cron:stavka - Получаем данные из stavka.tv и записываем в БД
+##### 2 */2 * * * php /var/www/html/artisan cron:olbg 1 - Запускаем процесс сбора данных a-parser
+##### 8 */2 * * * php /var/www/html/artisan cron:olbg - Получаем данные из a-parser и записываем в БД

@@ -182,9 +182,35 @@ class User {
         return result;
     }
 
-    async testA() {
+    async Stavka() {
         let context = this;
-        await mainApi.post(RoutersApi.routes['a-parser']).then((response) => {
+        await mainApi.post(RoutersApi.routes['stavka']).then((response) => {
+            if(response.status === StatusCodes.OK){
+                addNotise(response?.data?.message, response.status);
+            } else {
+                addNotise(response?.data?.message, response.status);
+            }
+        }).catch((error) => {
+            addNotise(error?.response?.data?.message, error.response.status);
+            console.log(error);
+        });
+    }
+    async Olbg() {
+        let context = this;
+        await mainApi.post(RoutersApi.routes['olbg']).then((response) => {
+            if(response.status === StatusCodes.OK){
+                addNotise(response?.data?.message, response.status);
+            } else {
+                addNotise(response?.data?.message, response.status);
+            }
+        }).catch((error) => {
+            addNotise(error?.response?.data?.message, error.response.status);
+            console.log(error);
+        });
+    }
+    async ChatGPT() {
+        let context = this;
+        await mainApi.post(RoutersApi.routes['chat']).then((response) => {
             if(response.status === StatusCodes.OK){
                 addNotise(response?.data?.message, response.status);
             } else {

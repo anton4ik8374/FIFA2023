@@ -31,8 +31,10 @@ Route::post('get-free-menu', [MenuController::class, 'getFreeMenu'])->name('getF
 Route::post('get-routers', [RoutesController::class, 'getRoutes'])->name('getRoutes');
 Route::post('login', [LoginController::class, 'login'])->name('login');
 Route::post('register', [RegisterController::class, 'register'])->name('register');
-Route::post('a-parser', [MainController::class, 'testA'])->name('a-parser');
-Route::post('get-a-parser', [MainController::class, 'testB'])->name('get-a-parser');
+Route::post('stavka', [MainController::class, 'stavka'])->name('stavka');
+Route::post('olbg', [MainController::class, 'olbg'])->name('olbg');
+Route::post('get-a-parser', [MainController::class, 'import'])->name('get-a-parser');
+Route::post('chat', [MainController::class, 'chat'])->name('chat');
 
 Route::group(['middleware' => ['throttle:120,1']], function () {
     Route::group(['middleware' => ['auth:sanctum']], function () {
