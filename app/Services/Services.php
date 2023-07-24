@@ -8,6 +8,7 @@ abstract class Services implements InterfaceServices
 {
 
     public static string $status = 'completed';
+    public string $league;
     /**
      * @var array
      */
@@ -32,9 +33,10 @@ abstract class Services implements InterfaceServices
      */
     public string|null $uuid = null;
 
-    public function __construct(){
+    public function __construct($league){
         $this->url = env('A_PARSER_DOMEN', 'http://127.0.0.1') . ':' . env('A_PARSER_PORT', 9091) . '/' . env('A_PARSER_URI', 'API');
         $this->aparser = new Aparser($this->url, env('A_PARSER_PAS', ''));
+        $this->league = $league;
     }
 
     /**

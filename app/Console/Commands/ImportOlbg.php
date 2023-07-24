@@ -3,10 +3,12 @@
 namespace App\Console\Commands;
 
 use App\Models\Events;
+use App\Models\JobImport;
 use App\Models\Matches;
 use App\Models\Teams;
 use App\Models\Forecasts;
 use App\Services\InterfaceServices;
+use App\Services\Olbg;
 use App\Services\Stavka;
 use Illuminate\Console\Command;
 
@@ -54,11 +56,17 @@ class ImportOlbg extends Command
     {
         $this->load = $this->argument('load');
         if($this->load){
-            $olbg = new Olbg();
-            if($olbg instanceof InterfaceServices) {
-                $olbg->load();
-                if($olbg->uuid){
-                    Events::add(['external_id' => $olbg->uuid, 'name' => env('SITE_OLBG_NAME')]);
+            $name = env('SITE_OLBG_NAME', '');
+            $imports = JobImport::whereSite($name)->get();
+            if($imports) {
+                foreach ($imports as $import) {
+                    $olbg = new Olbg($import->slug_league);
+                    if ($olbg instanceof InterfaceServices) {
+                        $olbg->load();
+                        if ($olbg->uuid) {
+                            Events::add(['external_id' => $olbg->uuid, 'name' => $import->site]);
+                        }
+                    }
                 }
             }
         }

@@ -141,7 +141,8 @@ class Olbg extends Services
             if ($this->aparser instanceof Aparser) {
                 $this->aparser->ping();
                 $this->aparser->info();
-                $this->uuid = $this->aparser->addTask('default', FALSE, 'text', env('SITE_OLBG'), $this->template_request);
+                $url = env('SITE_OLBG', '') . $this->league;
+                $this->uuid = $this->aparser->addTask('default', FALSE, 'text', $url, $this->template_request);
             }
         } catch (\Throwable $e) {
             Log::warning('LOAD OLBG ERROR: ' . $e->getMessage());
@@ -162,11 +163,12 @@ class Olbg extends Services
 
                 $commands = explode(' v ', $joinArray['matches']);
                 $joinArray["event_id"] = $event_id;
-                $joinArray["matches"] = $commands[0] . ' - ' . $commands[1];
+                $joinArray["matches"] = trim($commands[0]) . ' - ' . trim($commands[1]);
                 $tips = explode(' / ', preg_replace('/[^0-9 \/]/', '', $joinArray["tips"]));
-                $joinArray['team_home'] = $commands[0];
-                $joinArray['team_away'] = $commands[1];
+                $joinArray['team_home'] = trim($commands[0]);
+                $joinArray['team_away'] = trim($commands[1]);
                 $joinArray["all_tips"] =  $tips[1];
+                $joinArray["type"] =  $joinArray["bet"];
                 $joinArray["win_tips"] = $tips[0];
                 $joinArray["confidence"] = preg_replace('/[^0-9]/', '', $joinArray["confidence"]);
                 $result[] = $joinArray;

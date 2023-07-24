@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\Events;
+use App\Models\JobImport;
 use App\Models\Matches;
 use App\Models\Teams;
 use App\Models\Forecasts;
@@ -54,14 +55,19 @@ class ImportStavka extends Command
     public function handle()
     {
         $name = env('SITE_STAVKA_NAME', '');
-        $event = Events::add(['name' => $name]);
-        if($event) {
-            $stavka = new StavkaV2($event->id);
-            if ($stavka) {
-                $stavka->load();
-                if (count($stavka->result)) {
-                    $stavka->import();
-                    $event->edit(['status' => true]);
+        $imports = JobImport::whereSite($name)->get();
+        if($imports) {
+            foreach ($imports as $import) {
+                $event = Events::add(['name' => $import->site]);
+                if ($event) {
+                    $stavka = new StavkaV2($event->id, $import->slug_league);
+                    if ($stavka) {
+                        $stavka->load();
+                        if (!!$stavka->result && count($stavka->result)) {
+                            $stavka->import();
+                            $event->edit(['status' => true]);
+                        }
+                    }
                 }
             }
         }

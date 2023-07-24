@@ -29,8 +29,6 @@ return new class extends Migration
             $table->foreign('team_home_id')->references('id')->on('teams')->onDelete('cascade');
             $table->unsignedBigInteger('team_away_id')->comment('команда на выезде');
             $table->foreign('team_away_id')->references('id')->on('teams')->onDelete('cascade');
-            $table->unsignedBigInteger('selection_id')->comment('Выбрана эта команда')->nullable();
-            $table->foreign('selection_id')->references('id')->on('teams')->onDelete('cascade');
             $table->float('all_tips', 10, 3)->nullable()->comment('Всего прогнозов')->nullable();
             $table->float('win_tips', 10, 3)->nullable()->comment('Прогнозы по выигрышу')->nullable();
             $table->float('confidence', 10, 3)->nullable()->comment('Вероятность')->nullable();

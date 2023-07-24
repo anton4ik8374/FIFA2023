@@ -18,6 +18,10 @@ class Events extends Model
         'status',
     ];
 
+    public function events(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Matches::class, 'event_id', 'id');
+    }
 
     /**
      * Возвращаем записи которые не обработаны

@@ -15,6 +15,7 @@ class StavkaV2
     public array $headers = [];
     public string $event_id;
     public int $offset = 50;
+    public string $league;
     public $result;
     public array $params =  [
         'betOnTips' => 'false',
@@ -26,8 +27,9 @@ class StavkaV2
 
     public string $url = 'https://stavka.tv/api/v2/predictions';
 
-    public function __construct($event_id){
+    public function __construct($event_id, $league = ''){
             $this->event_id = $event_id;
+            $this->league = $league;
             $this->headers  = ['Content-Type: application/json'];
     }
     public function nextOffset(){
@@ -36,7 +38,7 @@ class StavkaV2
 
     protected function getUrl(){
         $uri =  $this->url . '?' . http_build_query($this->params);
-        return $uri . '&sports[]=soccer&leagueSlugs[]=uefa-europa-conference-league';
+        return $uri . '&sports[]=soccer&leagueSlugs[]=' . $this->league;
     }
 
     public function getData() : bool|string
@@ -79,11 +81,11 @@ class StavkaV2
             'author' => $item->predictor->lastName . ' ' . $item->predictor->firstName ,
             'roi' => $item->predictor->statistics->roi,
             'date_event' => $item->match->matchDate,
-            'team_home' => $item->match->teams->home->name,
+            'team_home' => trim($item->match->teams->home->name),
             'img_home' => env('SITE_STAVKA_SDN', '') . $item->match->teams->home->logo,
-            'team_away' => $item->match->teams->away->name,
+            'team_away' => trim($item->match->teams->away->name),
             'img_away' =>  env('SITE_STAVKA_SDN', '') . $item->match->teams->away->logo,
-            'matches' => $item->match->teams->home->name . ' - ' . $item->match->teams->away->name,
+            'matches' => trim($item->match->teams->home->name) . ' - ' . trim($item->match->teams->away->name),
             'odds' => $item->rate,
             'bet' => $item->type . ' ' . $item->outcome,
             'type' => $item->type,

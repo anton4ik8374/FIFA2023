@@ -33,4 +33,5 @@
 ## CRON
 ##### * */2 * * * php /var/www/html/artisan cron:stavka - Получаем данные из stavka.tv и записываем в БД
 ##### 2 */2 * * * php /var/www/html/artisan cron:olbg 1 - Запускаем процесс сбора данных a-parser
-##### 8 */2 * * * php /var/www/html/artisan cron:olbg - Получаем данные из a-parser и записываем в БД
+##### 4 */2 * * * php /var/www/html/artisan cron:olbg - Получаем данные из a-parser и записываем в БД
+##### 6 */2 * * * php /var/www/html/artisan cron:gpt - Анализируем прогнозы с помощью ChatGPT

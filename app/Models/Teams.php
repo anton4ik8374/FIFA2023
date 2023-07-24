@@ -133,4 +133,9 @@ class Teams extends Model
         return $arrayImage[1];
 
     }
+
+    public static function getDrawn(){
+
+        return self::whereNameEn('Drawn')->first();
+    }
 }

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Traites\Crud;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -20,7 +21,6 @@ class Matches extends Model
         'description',
         'team_home_id',
         'team_away_id',
-        'selection_id',
         'bet',
         'odds',
         'all_tips',
@@ -44,5 +44,21 @@ class Matches extends Model
             $matches = self::add($result);
         }
         return $matches->id;
+    }
+
+    public function forecasts(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Forecasts::class, 'matche_id', 'id');
+    }
+    public function events (): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Events::class, 'event_id', 'id');
+    }
+
+    public static function getActualMach() : collection
+    {
+        $currentTime = Carbon::now()->setTimezone(config('app.timezone'));
+        return self::where('date_event', '>=', $currentTime)->get();
+
     }
 }
