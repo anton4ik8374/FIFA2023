@@ -74,12 +74,12 @@ const CardItem = observer(() => {
                     <Box sx={CardStyle.containerMatch}>
                         <Box>
                             <Box sx={CardStyle.blockTeam}>
-                                <Avatar alt={item?.team_home?.name_ru} src={`/storage${item?.team_home?.logo}`}/>
-                                <Typography sx={CardStyle.team}>{item?.team_home?.name_ru}</Typography>
+                                <Avatar alt={item?.team_home?.name} src={`/storage${item?.team_home?.logo}`}/>
+                                <Typography sx={CardStyle.team}>{item?.team_home?.name}</Typography>
                             </Box>
                             <Box sx={CardStyle.blockTeam}>
-                                <Avatar alt={item?.teams_away?.name_ru} src={`/storage${item?.teams_away?.logo}`}/>
-                                <Typography sx={CardStyle.team}>{item?.teams_away?.name_ru}</Typography>
+                                <Avatar alt={item?.teams_away?.name} src={`/storage${item?.teams_away?.logo}`}/>
+                                <Typography sx={CardStyle.team}>{item?.teams_away?.name}</Typography>
                             </Box>
                         </Box>
                         <Box>

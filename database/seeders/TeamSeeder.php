@@ -16,7 +16,7 @@ class TeamSeeder extends Seeder
     {
         $sites = [
             [
-                'name_en' => 'Draw',
+                'name' => 'Draw',
                 'name_ru' => 'Ничья',
                 'alter_name' => 'Матч закончился с равным счётом',
                 'logo' => '/logos/draw.png',

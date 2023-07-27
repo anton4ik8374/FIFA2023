@@ -15,7 +15,7 @@ class Teams extends Model
     use Crud;
 
     protected $fillable = [
-        'name_en',
+        'name',
         'name_ru',
         'alter_name',
         'description',
@@ -34,27 +34,12 @@ class Teams extends Model
 
     public static function doAdd(array $data) : array {
 
-        $team_home = self::where('name_ru', $data['team_home'])->orWhere('name_en', $data['team_home'])->orWhere('alter_name', $data['team_home'])->first();
-        $team_away = self::where('name_ru', $data['team_away'])->orWhere('name_en', $data['team_away'])->orWhere('alter_name', $data['team_away'])->first();
+        $team_home = self::where('name', $data['team_home'])->orWhere('name_ru', $data['team_home'])->orWhere('alter_name', $data['team_home'])->first();
+        $team_away = self::where('name', $data['team_away'])->orWhere('name_ru', $data['team_away'])->orWhere('alter_name', $data['team_away'])->first();
 
-        if(self::isContainsRussianLetters($data['team_home'])) {
-            $result_home = [
-                'name_ru' => $data['team_home']
-            ];
-        }else{
-            $result_home = [
-                'name_en' => $data['team_home']
-            ];
-        }
-        if(self::isContainsRussianLetters($data['team_away'])) {
-            $result_away = [
-                'name_ru' => $data['team_away']
-            ];
-        }else{
-            $result_away = [
-                'name_en' => $data['team_away']
-            ];
-        }
+        $result_home = ['name' => $data['team_home']];
+        $result_away = ['name' => $data['team_away']];
+
         if(!$team_home){
             $team_home = self::add($result_home);
             if(isset($data['img_home'])){

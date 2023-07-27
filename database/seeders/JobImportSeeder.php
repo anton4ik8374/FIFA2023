@@ -19,8 +19,8 @@ class JobImportSeeder extends Seeder
         $sites = [
             [
                 'site' => 'stavka.tv',
-                'name' => 'Лига конференций УЕФА',
-                'slug_league' => 'uefa-europa-conference-league',
+                'name' => 'Кубок России',
+                'slug_league' => 'russia-russian-cup',
                 'actual' => true,
             ],
             [

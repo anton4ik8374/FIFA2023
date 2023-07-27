@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('teams', function (Blueprint $table) {
             $table->bigIncrements('id')->comment('Идентификатор');
-            $table->text('name_en')->nullable()->comment('Наименование на русском');
+            $table->text('name')->nullable()->comment('Наименование');
             $table->text('name_ru')->nullable()->comment('Наименование на английском');
             $table->text('alter_name')->nullable()->comment('Альтернативное название');
             $table->text('description')->nullable()->comment('Описание');
