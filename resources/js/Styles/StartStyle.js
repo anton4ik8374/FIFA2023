@@ -1,7 +1,8 @@
 const StartStyle = {
     main: {
         minHeight: '100vh',
-        pt: 11
+        pt: 13,
+        backgroundColor: '#2C2B3E'
     },
     start: {
         flexGrow: 1,
@@ -25,14 +26,13 @@ const StartStyle = {
     container: {
         position: 'relative',
         overflow: 'hidden',
-        bgcolor: 'background.inactive',
-        pt: 8,
-        pb: 6,
-    },
-    shadows: {
-        pt: '10vh',
-        background: 'linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0.65) 56%,rgba(0,0,0,0.65) 100%) !important'
-    },
+        pt: 0,
+        pb: 0,
+        background: '#2C2B3E'
+
+
+
+},
     paralaxText: {
         position: 'absolute',
         top: 177,

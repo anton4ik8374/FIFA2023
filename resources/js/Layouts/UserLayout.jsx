@@ -23,7 +23,6 @@ const UserLayout = observer((props) => {
             <Box component="main" sx={StartStyle.main}>
                 <Outlet />
             </Box>
-            <FooterUser/>
         </Box>
     );
 });

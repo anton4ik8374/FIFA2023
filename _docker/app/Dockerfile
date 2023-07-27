@@ -14,14 +14,12 @@ RUN apt-get update && apt-get install -y \
       apt-get clean && \
       rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-
 COPY ./_docker/app/php.ini /usr/local/etc/php/conf.d/php.ini
-
 
 COPY app            /var/www/app
 COPY bootstrap      /var/www/bootstrap
 COPY config         /var/www/config
-COPY database       /var/www/database
+#COPY database       /var/www/database
 COPY public         /var/www/public
 COPY resources      /var/www/resources
 COPY routes         /var/www/routes
@@ -41,7 +39,12 @@ RUN curl -sS https://getcomposer.org/installer | php -- \
 RUN echo "alias a='artisan'" >> /root/.bashrc
 
 RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
-RUN apt-get install -y nodejs
+#RUN apt-get install -y nodejs
+
+# Install Python and other required dependencies
+#RUN apt-get install -y python3 python3-pip && \
+#    pip3 install --upgrade pip
+#pip3 install tiktoken
 
 RUN composer install \
       --no-interaction \

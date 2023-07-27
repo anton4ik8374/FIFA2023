@@ -7,7 +7,8 @@ use App\Http\Controllers\MenuController;
 use App\Http\Controllers\RoutesController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\ProverkachekaController;
+use App\Http\Controllers\LeaguesController;
+use App\Http\Controllers\MatchesController;
 
 
 /*
@@ -29,8 +30,12 @@ Route::group(['prefix' => 'user'], function () {
 });
 Route::post('get-free-menu', [MenuController::class, 'getFreeMenu'])->name('getFreeMenu');
 Route::post('get-routers', [RoutesController::class, 'getRoutes'])->name('getRoutes');
+Route::post('get-leagues', [LeaguesController::class, 'getLeagues'])->name('getLeagues');
+Route::post('get-actual-matches', [MatchesController::class, 'getActualMatches'])->name('getActualMatches');
+
 Route::post('login', [LoginController::class, 'login'])->name('login');
 Route::post('register', [RegisterController::class, 'register'])->name('register');
+
 Route::post('stavka', [MainController::class, 'stavka'])->name('stavka');
 Route::post('olbg', [MainController::class, 'olbg'])->name('olbg');
 Route::post('get-a-parser', [MainController::class, 'import'])->name('get-a-parser');
@@ -41,7 +46,6 @@ Route::group(['middleware' => ['throttle:120,1']], function () {
         Route::group(['prefix' => 'user'], function () {
 
         });
-        Route::post('getCheck', [ProverkachekaController::class, 'getCheck'])->name('getCheck');
         Route::post('get-lk-menu', [MenuController::class, 'getLkMenu'])->name('getLkMenu');
         Route::group(['middleware' => ['role']], function () {
             Route::middleware('ip')->group(function () {

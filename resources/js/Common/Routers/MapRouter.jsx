@@ -1,4 +1,5 @@
 import Home from "@/Page/Home";
+import Matches from "@/Page/Matches";
 import React from "react";
 
 import SignIn from "@/Page/SignIn";
@@ -16,6 +17,11 @@ const routes =
                 name: 'home',
                 path: '/',
                 element: <Home/>
+            },
+            {
+                name: 'matches',
+                path: '/matches/:matches',
+                element: <Matches/>
             },
             {
                 name: 'signIn',

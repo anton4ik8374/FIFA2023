@@ -22,6 +22,16 @@ class Teams extends Model
         'logo',
     ];
 
+    public function matcheHome(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Matches::class, 'team_home_id', 'id');
+    }
+
+    public function matcheAway(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Matches::class, 'team_away_id', 'id');
+    }
+
     public static function doAdd(array $data) : array {
 
         $team_home = self::where('name_ru', $data['team_home'])->orWhere('name_en', $data['team_home'])->orWhere('alter_name', $data['team_home'])->first();

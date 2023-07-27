@@ -2,7 +2,7 @@ import * as React from 'react';
 import {Box, Checkbox, Button} from '@mui/material';
 import Container from '@mui/material/Container';
 import {observer} from "mobx-react";
-import {BarcodeScanner} from "@/Components/BarcodeScanner";
+
 import {useState, useEffect} from "react";
 import {QrCode} from '@mui/icons-material';
 import UserStore from "@/Stores/UserStore";

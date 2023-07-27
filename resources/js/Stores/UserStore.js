@@ -5,6 +5,7 @@ import {StatusCodes} from 'http-status-codes'
 import MenuStore from "@/Stores/MenuStore";
 import RoutersApi from "@/Stores/RoutersStore";
 import {addNotise} from "@/Helpers/Helpers"
+import leaguesStore from "@/Stores/LeaguesStore";
 
 class User {
     user = {};
@@ -53,6 +54,7 @@ class User {
                 //Подгрузка всего для старта
                 context.loadUser(),
                 MenuStore.loadFreeMenu(),
+                leaguesStore.getLeagues(),
         ]).then(() => {
                 context.setStartLoad();
         })
@@ -144,27 +146,6 @@ class User {
         });
     }
 
-    /**
-     *
-     * @returns {Promise<void>}
-     */
-    async getCheck(data) {
-        let context = this;
-        await mainApi.post(RoutersApi.routes.getCheck, data).then((response) => {
-            runInAction(() => {
-                if(response.status === StatusCodes.OK){
-                    addNotise(response?.data?.message, response.status);
-                    context.addCheck(response.data);
-                } else {
-                    addNotise(response?.data?.message, response.status);
-                }
-            });
-        }).catch((error) => {
-            addNotise(error?.response?.data?.message, error.response.status);
-            console.log(error);
-        });
-    }
-
     get users() {
         return this.user;
     }
@@ -195,7 +176,7 @@ class User {
             console.log(error);
         });
     }
-    async Olbg() {
+    async OlbgLoad() {
         let context = this;
         await mainApi.post(RoutersApi.routes['olbg']).then((response) => {
             if(response.status === StatusCodes.OK){
@@ -221,9 +202,9 @@ class User {
             console.log(error);
         });
     }
-    async testB(uuid) {
+    async OlbgGet() {
         let context = this;
-        await mainApi.post(RoutersApi.routes['get-a-parser'], uuid).then((response) => {
+        await mainApi.post(RoutersApi.routes['get-a-parser'], {uuid:1}).then((response) => {
             if(response.status === StatusCodes.OK){
                 addNotise(response?.data?.message, response.status);
             } else {

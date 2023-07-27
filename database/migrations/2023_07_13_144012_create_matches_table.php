@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('matches', function (Blueprint $table) {
             $table->bigIncrements('id')->comment('Идентификатор');
+            $table->text('slug')->unique()->nullable()->comment('Альтернативное название');
             $table->text('name')->nullable()->comment('Наименование базовое');
             $table->text('name_ru')->nullable()->comment('Наименование на русском');
             $table->text('description')->nullable()->comment('Комментарий')->nullable();

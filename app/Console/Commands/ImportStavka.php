@@ -55,7 +55,7 @@ class ImportStavka extends Command
     public function handle()
     {
         $name = env('SITE_STAVKA_NAME', '');
-        $imports = JobImport::whereSite($name)->get();
+        $imports = JobImport::whereSite($name)->whereActual(true)->get();
         if($imports) {
             foreach ($imports as $import) {
                 $event = Events::add(['name' => $import->site]);

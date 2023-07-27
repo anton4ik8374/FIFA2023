@@ -7,6 +7,7 @@
 1. Для развёртывания на вашем устройстве должен быть установлен Node.js ,Docker
 2. Если вы работаете под Windows вам может понадобится WSL https://learn.microsoft.com/ru-ru/windows/wsl/install
 3. Далее описаны шиги по развёртыванию окружения.
+4. в системе должени быть установлен Python и пакет pip install tiktoken
 - - -
 - __npm install__ установить зависимости Node
 - __composer install__ установить зависимости php
