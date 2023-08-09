@@ -10,8 +10,7 @@ import leaguesStore from "@/Stores/LeaguesStore";
 import CardItem from "@/Components/CardItem";
 import {observer} from "mobx-react";
 
-const Home = observer(() => {
-
+const Home = observer((props) => {
     let navigate = useNavigate();
 
     const {leagues} = leaguesStore;

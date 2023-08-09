@@ -7,7 +7,6 @@ import {observer} from "mobx-react";
 
 
 const Start = observer(() => {
-
     return (
         <>
             {!(User.startLoad && RoutersApi.loaded) ? (<ProjectSkeleton/>) : (<ConfigRouter/>)}

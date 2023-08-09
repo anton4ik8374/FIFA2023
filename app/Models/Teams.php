@@ -131,6 +131,6 @@ class Teams extends Model
 
     public static function getDrawn(){
 
-        return self::whereNameEn('Drawn')->first();
+        return self::whereName('Draw')->first();
     }
 }

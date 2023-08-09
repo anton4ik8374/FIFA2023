@@ -20,7 +20,7 @@ const routes =
             },
             {
                 name: 'matches',
-                path: '/matches/:matches',
+                path: '/matches/:id/:slug',
                 element: <Matches/>
             },
             {

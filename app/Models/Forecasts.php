@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Traites\Crud;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use SebastianBergmann\Template\Template;
 
 class Forecasts extends Model
 {
@@ -46,6 +47,15 @@ class Forecasts extends Model
     public function matches (): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Matches::class, 'matche_id', 'id');
+    }
+
+    public function teamHome (): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Teams::class, 'team_home_id', 'id');
+    }
+    public function teamAway (): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Teams::class, 'team_away_id', 'id');
     }
 
     public static function doAdd(array $data): int

@@ -32,6 +32,7 @@ Route::post('get-free-menu', [MenuController::class, 'getFreeMenu'])->name('getF
 Route::post('get-routers', [RoutesController::class, 'getRoutes'])->name('getRoutes');
 Route::post('get-leagues', [LeaguesController::class, 'getLeagues'])->name('getLeagues');
 Route::post('get-actual-matches', [MatchesController::class, 'getActualMatches'])->name('getActualMatches');
+Route::post('get-match', [MatchesController::class, 'getMatch'])->name('getMatch');
 
 Route::post('login', [LoginController::class, 'login'])->name('login');
 Route::post('register', [RegisterController::class, 'register'])->name('register');

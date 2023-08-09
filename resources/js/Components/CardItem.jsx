@@ -25,6 +25,9 @@ const CardItem = observer(() => {
 
     useEffect(() => {
         MatchesStore.getActualMatches();
+        return () => {
+            MatchesStore.add([]);
+        }
     }, []);
 
     const ColorButton = styled(Button)(({theme}) => ({
@@ -49,7 +52,7 @@ const CardItem = observer(() => {
                     win = 'Team 2';
                     break;
                 default:
-                    win = item?.teams_away?.id;
+                    win = 'Drawn';
             }
         }
         return win;
@@ -67,18 +70,18 @@ const CardItem = observer(() => {
 
     let matchesRender = matches.map(item => {
         return (
-            <Card maxWidth="xs" sx={CardStyle.card}>
+            <Card maxWidth="xs" sx={CardStyle.card} key={item.id}>
                 <CardContent>
-                    <Typography sx={CardStyle.league} variant="p"
-                                color="text.secondary">{item?.league?.name}</Typography>
+                    <Typography sx={CardStyle.league} variant="p">{`#id: ${item?.id} `}</Typography>
+                    <Typography sx={CardStyle.league} variant="p">{item?.league?.name}</Typography>
                     <Box sx={CardStyle.containerMatch}>
                         <Box>
                             <Box sx={CardStyle.blockTeam}>
-                                <Avatar alt={item?.team_home?.name} src={`/storage${item?.team_home?.logo}`}/>
+                                <Avatar sx={CardStyle.imagesTeam} alt={item?.team_home?.name} src={item?.team_home?.logo ? `/storage${item?.team_home?.logo}` : `/storage/logos/soccer_ball.png`}/>
                                 <Typography sx={CardStyle.team}>{item?.team_home?.name}</Typography>
                             </Box>
                             <Box sx={CardStyle.blockTeam}>
-                                <Avatar alt={item?.teams_away?.name} src={`/storage${item?.teams_away?.logo}`}/>
+                                <Avatar sx={CardStyle.imagesTeam} alt={item?.teams_away?.name} src={item?.teams_away?.logo ? `/storage${item?.teams_away?.logo}` : `/storage/logos/soccer_ball.png`}/>
                                 <Typography sx={CardStyle.team}>{item?.teams_away?.name}</Typography>
                             </Box>
                         </Box>
@@ -94,17 +97,17 @@ const CardItem = observer(() => {
                             <Box sx={CardStyle.containerFooter}>
                                 <Box sx={CardStyle.containerResult}>
                                     <CircularWithValueLabel all={item?.result?.count_forecasts}
-                                                            win={item?.result?.count_forecasts_win}/>
+                                                            win={item?.statistics[0].total}/>
                                     <Typography sx={CardStyle.team}>{getWin(item)}</Typography>
                                 </Box>
-                                <ColorButton style={{textTransform: 'none'}} variant="contained" onClick={() => reload()}>
-                                    ?.? | Bet
+                                <ColorButton style={{textTransform: 'none'}} variant="contained" onClick={() => console.log('1')}>
+                                    {`${item?.statistics[0].odds.toFixed(2)} | Bet`}
                                 </ColorButton>
                             </Box>
                         </Box>
                         <Box sx={{...CardStyle.containerMatch, ...CardStyle.footerBlock}}>
-                            <Typography sx={{...CardStyle.league, ...CardStyle.footerText}}>{`Based on ${item?.forecasts_count} tips`}</Typography>
-                            <Link to={generatePath(routesMap.matches, {matches: 'zz-ss'})} style={{...CardStyle.league, ...CardStyle.footerLink}}>{'Read more >'}</Link>
+                            <Typography sx={{...CardStyle.league, ...CardStyle.footerText}}>{`Based on ${item?.result?.count_forecasts} tips`}</Typography>
+                            <Link to={generatePath(routesMap.matches, {id: item.id, slug: item.slug})} style={{...CardStyle.league, ...CardStyle.footerLink}}>{'Read more >'}</Link>
                         </Box>
                     </Box>
 
@@ -120,11 +123,6 @@ const CardItem = observer(() => {
             <Box maxWidth="xs" sx={CardStyle.blockTeam}>
                 <ColorButton fullWidth={true} variant="contained">
                     Show more
-                </ColorButton>
-            </Box>
-            <Box maxWidth="xs" sx={CardStyle.blockTeam}>
-                <ColorButton fullWidth={true} variant="contained" onClick={() => reload()}>
-                    Reload
                 </ColorButton>
             </Box>
         </>

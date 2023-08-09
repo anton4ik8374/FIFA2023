@@ -1,23 +1,17 @@
 import React from 'react';
 import Skeleton from '@mui/material/Skeleton';
 import Box from '@mui/material/Box';
+import Stack from "@mui/material/Stack";
 
 
 const ProjectSkeleton = () => {
     return (
-        <>
-            <Box component="main">
-                <Skeleton/>
-                <Skeleton animation={false}/>
-                <Skeleton animation="wave"/>
-                <Skeleton animation="wave"/>
-                <Skeleton variant="rect" width={'100%'} height={'80vh'} />
-                <Skeleton/>
-                <Skeleton animation={false}/>
-                <Skeleton animation="wave"/>
-                <Skeleton animation="wave"/>
-            </Box>
-        </>
+        <Stack spacing={1} sx={{m:1}}>
+            <Skeleton variant="text" sx={{ fontSize: '1rem' }} />
+            <Skeleton variant="rectangular" fullWidth={true} height={300} />
+            <Skeleton variant="rectangular" fullWidth={true} height={300} />
+            <Skeleton variant="text" sx={{ fontSize: '1rem' }} />
+        </Stack>
 
     );
 }

@@ -140,7 +140,7 @@
     "src": "resources/css/fonts/lined-icons.woff"
   },
   "resources/js/app.css": {
-    "file": "assets/app-27bf0f85.css",
+    "file": "assets/app-4929dae7.css",
     "src": "resources/js/app.css"
   },
   "resources/js/app.jsx": {
@@ -182,9 +182,9 @@
       "assets/Simple-Line-Icons-357af00e.woff"
     ],
     "css": [
-      "assets/app-27bf0f85.css"
+      "assets/app-4929dae7.css"
     ],
-    "file": "assets/app-9470bbcd.js",
+    "file": "assets/app-2382f4e3.js",
     "isEntry": true,
     "src": "resources/js/app.jsx"
   }

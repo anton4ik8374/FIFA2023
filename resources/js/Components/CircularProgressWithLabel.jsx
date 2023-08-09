@@ -6,7 +6,7 @@ import Box from '@mui/material/Box';
 import {observer} from "mobx-react";
 
 
-const CircularWithValueLabel = observer(({all, win}) =>  {
+const CircularWithValueLabel = observer(({all, win, size = 40}) =>  {
 
     const getPercent = (all, win) => {
         if(all && win) {
@@ -16,7 +16,7 @@ const CircularWithValueLabel = observer(({all, win}) =>  {
     }
     return (
         <Box sx={{ position: 'relative', display: 'inline-flex' }}>
-            <CircularProgress color="success" variant="determinate" value={getPercent(all, win)} />
+            <CircularProgress  size={size} color="success" variant="determinate" value={getPercent(all, win)} />
             <Box
                 sx={{
                     top: 0,

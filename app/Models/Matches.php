@@ -104,4 +104,9 @@ class Matches extends Model
         return self::where('date_event', '>=', $currentTime)->get();
 
     }
+
+    public  function resultTypeAll()
+    {
+        return $this->forecasts()->groupBy('bet')->selectRaw('bet, count(*) as total, avg(odds) as odds')->orderByDesc('total')->get();
+    }
 }

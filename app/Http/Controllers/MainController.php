@@ -37,13 +37,19 @@ class MainController extends Controller
                         /**
                          * Для сайта olbg.com т.к. мы получаем от них суммированный результат
                          */
-                        if($matche->events->name === env('SITE_OLBG_NAME', '') && $forecast->win_tips > 1){
-                            for($i = 0; $i <= $forecast->win_tips; $i++){
-                                $bet = str_replace('w2','win Team2',str_replace('w1','win Team1', str_replace('_', ' ', $forecast->bet)));
-                                $bet = str_replace('t2','Team2',str_replace('t1','Team1', $bet));
-                                $query .= 'Team1-Team2, ' . $forecast->odds . ', ' . $bet . ';';
+                        if($matche->events->name === env('SITE_OLBG_NAME', '')){
+                            $team1 = $forecast->teamHome;
+                            $team2 = $forecast->teamAway;
+                            for($i = 0; $i < $forecast->win_tips; $i++){
+                                $bet = $forecast->bet;
+                                if($team1->name == $forecast->bet){
+                                    $bet = 'win Team1';
+                                }elseif ($team2->name == $forecast->bet){
+                                    $bet = 'win Team2';
+                                }
+                                $query .= 'Team1-Team2, ' . $forecast->odds . ', ' . $bet .';';
                             }
-                            $count_forecasts += $forecast->win_tips;
+                            $count_forecasts += $forecast->all_tips;
                         }else{
                             $bet = str_replace('w2','win Team2',str_replace('w1','win Team1', str_replace('_', ' ', $forecast->bet)));
                             $bet = str_replace('t2','Team2',str_replace('t1','Team1', $bet));
@@ -78,23 +84,25 @@ class MainController extends Controller
                                 'count_forecasts' => $count_forecasts
                             ];
                             if($newRes['chat_gpt_result']){
-                                $team1 = str_contains($newRes['chat_gpt_result'], 'Team1') ? : str_contains($newRes['chat_gpt_result'], 'Team 1');
-                                $team2 = str_contains($newRes['chat_gpt_result'], 'Team2') ? : str_contains($newRes['chat_gpt_result'], 'Team 2');
-                                $draw = str_contains($newRes['chat_gpt_result'], 'Draw');
-                                $countWin = 0;
-                                if($team1){
+                                $team1 = str_contains($newRes['chat_gpt_result'], 'Team1:') ? : str_contains($newRes['chat_gpt_result'], 'Team 1');
+                                $team2 = str_contains($newRes['chat_gpt_result'], 'Team2:') ? : str_contains($newRes['chat_gpt_result'], 'Team 2');
+                                $draw = str_contains($newRes['chat_gpt_result'], 'Draw') ? : str_contains($newRes['chat_gpt_result'], 'Team1-Team2:');
+                                $countWin = [];
+                                if ($draw){
+                                    $teamDrawn = Teams::getDrawn();
+                                    $newRes['win_team_id'] = $teamDrawn->id;
+                                    $countWin = explode('Draw:', $newRes['chat_gpt_result']);
+                                    $newRes['count_forecasts_win'] = isset($countWin[1]) ? (int)$countWin[1] : 0;
+                                }
+                                elseif($team1){
                                     $newRes['win_team_id'] = $matche->team_home_id;
                                     $countWin = explode('Team1:', $newRes['chat_gpt_result']);
                                     $newRes['count_forecasts_win'] = isset($countWin[1]) ? (int)$countWin[1] : 0;
-                                }elseif ($team2){
+                                }
+                                elseif ($team2){
                                     $newRes['win_team_id'] = $matche->team_away_id;
                                     $countWin = explode('Team2:', $newRes['chat_gpt_result']);
                                     $newRes['count_forecasts_win'] = isset($countWin[1]) ? (int)$countWin[1] : 0;
-                                }elseif ($draw){
-                                    $teamDrawn = Teams::getDrawn();
-                                    $countWin = explode('Draw:', $newRes['chat_gpt_result']);
-                                    $newRes['count_forecasts_win'] = isset($countWin[1]) ? (int)$countWin[1] : 0;
-                                    $newRes['win_team_id'] = $teamDrawn->id;
                                 }
                             }
                             if(!$res) {

@@ -2,31 +2,30 @@ import * as React from 'react';
 
 import Box from '@mui/material/Box';
 import StartStyle from "@/Styles/StartStyle";
-import UserStore from "@/Stores/UserStore";
-import {CssBaseline, TextField} from "@mui/material";
-import {useNavigate} from "react-router-dom";
-import {useEffect, useState} from "react";
-import leaguesStore from "@/Stores/LeaguesStore";
-import CardItem from "@/Components/CardItem";
+import {CssBaseline} from "@mui/material";
+import {useEffect} from "react";
 import {observer} from "mobx-react";
+import MatcheDetails from "@/Components/MatcheDetails";
+import MatchesStore from "@/Stores/MatchesStore";
+import { useParams } from "react-router-dom"
 
-const Matches = observer(() => {
-
-    let navigate = useNavigate();
-
-    const {leagues} = leaguesStore;
-
+const Matches = () => {
+    const { id } = useParams();
     useEffect(() => {
-
-    }, []);
+        MatchesStore.getMatch(id);
+        return () => {
+            MatchesStore.addMatch({});
+        }
+    }, [id]);
 
 
     return (
         <>
             <Box sx={StartStyle.container} maxWidth="xs">
-               привет
+                <CssBaseline/>
+                <MatcheDetails/>
             </Box>
         </>
     );
-});
-export default Matches;
+};
+export default observer(Matches);
